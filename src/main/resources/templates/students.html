@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>List of students</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css" />
+</head>
+<body>
+	<section class="section">
+		<div class="container">
+			<h1 class="title">List of students</h1>
+			<form th:action="@{index}" method="get">
+			<div class="field is-grouped">
+			  <p class="control is-expanded">
+			    <input class="input" type="text" name="search" placeholder="Find a repository"/>
+			  </p>
+			  <p class="control">
+			    <button class="button is-info" type="submit">
+			      Search
+			    </button>
+			  </p>
+			</div>
+			</form>
+			<br/>
+			<table class="table is-bordered is-striped is-narrow is-fullwidth">
+				<thead>
+					<tr>
+						<th><b>Photo</b></th>
+						<th><b>Full name</b></th>
+						<th><b>Email</b></th>
+						
+					<th><b>birthday</b></th>
+					
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="s:${students.content}">
+					<td th:text="${s.photo}"></td>
+					<td th:text="${s.fullName}"></td>
+					<td th:text="${s.email}"></td>
+					<td th:text="${s.birthday}"></td>
+				</tr>
+				</tbody>
+			</table>
+			<nav class="pagination" role="navigation" aria-label="pagination">
+			  <ul class="pagination-list">
+			    <li th:each="p:${pages}">
+			      <a th:class="${p==pageCourante}?'pagination-link is-current':'pagination-link'" th:text="${p}" th:href="@{index(page=${p},search=${search})}"></a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+	</section>
+</body>
+</html>
